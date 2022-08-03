@@ -19,6 +19,11 @@ Acesse a pasta do projeto e rode o comando para instalar as dependências npm:
 
     npm install
 
+É essencial que uma instância do Kafka esteja em execução. Exemplo:
+
+    ./bin/zookeeper-server-start.sh config/zookeeper.properties
+    ./bin/kafka-server-start.sh config/server.properties
+
 Para executar o produtor, execute:
 
     npm run producer
