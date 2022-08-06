@@ -1,10 +1,10 @@
 const { KafkaConfig } = require("../config");
 
-class NewOrderConsumer {
+class LogConsumer {
   static initialize = async () => {
     const kafka = KafkaConfig.initialize();
 
-    const consumer = kafka.consumer({ groupId: "new-order-group" });
+    const consumer = kafka.consumer({ groupId: "log-new-order-group" });
 
     await consumer.connect();
     await consumer.subscribe({ topic: "NEW_ORDER", fromBeginning: false });
@@ -12,7 +12,7 @@ class NewOrderConsumer {
     await consumer.run({
       eachMessage: async ({ topic, partition, message }) => {
         console.log({
-          Consumer: "NewOrderConsumer",
+          Consumer: "LogConsumer",
           topic,
           partition,
           value: message.value.toString(),
@@ -22,4 +22,4 @@ class NewOrderConsumer {
   };
 }
 
-module.exports = NewOrderConsumer;
+module.exports = LogConsumer;
