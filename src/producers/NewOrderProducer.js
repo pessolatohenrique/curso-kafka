@@ -8,17 +8,23 @@ class NewOrderProducer {
     await producer.connect();
     await producer.send({
       topic: "NEW_ORDER",
-      messages: [{ value: "12345" }],
+      messages: [
+        { key: Math.floor(Math.random() * 100000).toString(), value: "12345" },
+      ],
     });
 
     await producer.send({
       topic: "NEW_ORDER",
-      messages: [{ value: "78901" }],
+      messages: [
+        { key: Math.floor(Math.random() * 100000).toString(), value: "78901" },
+      ],
     });
 
     await producer.send({
       topic: "NEW_ORDER",
-      messages: [{ value: "991" }],
+      messages: [
+        { key: Math.floor(Math.random() * 100000).toString(), value: "991" },
+      ],
     });
 
     await producer.disconnect();
