@@ -7,7 +7,10 @@ class LogConsumer {
     const consumer = kafka.consumer({ groupId: "log-new-order-group" });
 
     await consumer.connect();
-    await consumer.subscribe({ topic: "NEW_ORDER", fromBeginning: false });
+    await consumer.subscribe({
+      topics: ["NEW_ORDER", "NEW_CUSTOMER"],
+      fromBeginning: false,
+    });
 
     await consumer.run({
       eachMessage: async ({ topic, partition, message }) => {
