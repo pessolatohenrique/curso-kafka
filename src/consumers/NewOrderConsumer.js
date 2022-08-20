@@ -1,23 +1,12 @@
-const { KafkaConfig } = require("../config");
+const { ConsumerWrapper } = require("../utils");
 
 class NewOrderConsumer {
   static initialize = async () => {
-    const kafka = KafkaConfig.initialize();
-
-    const consumer = kafka.consumer({ groupId: "new-order-group" });
-
-    await consumer.connect();
-    await consumer.subscribe({ topic: "NEW_ORDER", fromBeginning: false });
-
-    await consumer.run({
-      eachMessage: async ({ topic, partition, message }) => {
-        console.log({
-          Consumer: "NewOrderConsumer",
-          topic,
-          partition,
-          value: message.value.toString(),
-        });
-      },
+    await ConsumerWrapper.initialize({
+      name: "NewOrderConsumer",
+      groupId: "new-order-group",
+      topics: ["NEW_ORDER"],
+      fromBeginning: false,
     });
   };
 }
