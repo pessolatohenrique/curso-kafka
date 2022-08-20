@@ -8,22 +8,35 @@ class NewCustomerProducer {
     await producer.connect();
     await producer.send({
       topic: "NEW_CUSTOMER",
-      messages: [{ value: "10" }],
-    });
-
-    await producer.send({
-      topic: "NEW_CUSTOMER",
-      messages: [{ value: "20" }],
-    });
-
-    await producer.send({
-      topic: "NEW_CUSTOMER",
-      messages: [{ value: "30" }],
-    });
-
-    await producer.send({
-      topic: "NEW_CUSTOMER",
-      messages: [{ value: "40" }],
+      messages: [
+        {
+          key: Math.floor(Math.random() * 100000).toString(),
+          value: JSON.stringify({
+            id: Math.floor(Math.random() * 100000),
+            name: "Giovanna",
+            age: 35,
+            gender: "F",
+          }),
+        },
+        {
+          key: Math.floor(Math.random() * 100000).toString(),
+          value: JSON.stringify({
+            id: Math.floor(Math.random() * 100000),
+            name: "Carlos",
+            age: 30,
+            gender: "M",
+          }),
+        },
+        {
+          key: Math.floor(Math.random() * 100000).toString(),
+          value: JSON.stringify({
+            id: Math.floor(Math.random() * 100000),
+            name: "Mariana",
+            age: 25,
+            gender: "F",
+          }),
+        },
+      ],
     });
 
     await producer.disconnect();

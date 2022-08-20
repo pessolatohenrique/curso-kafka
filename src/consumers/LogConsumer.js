@@ -18,7 +18,7 @@ class LogConsumer {
           Consumer: "LogConsumer",
           topic,
           partition,
-          value: message.value.toString(),
+          value: JSON.parse(message.value.toString()),
         });
       },
     });
