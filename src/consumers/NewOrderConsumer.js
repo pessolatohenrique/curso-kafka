@@ -7,6 +7,9 @@ class NewOrderConsumer {
       groupId: "new-order-group",
       topics: ["NEW_ORDER"],
       fromBeginning: false,
+      customFunction: function ({ topic, partition, message }) {
+        console.log("custom function!", topic, message.value.toString());
+      },
     });
   };
 }

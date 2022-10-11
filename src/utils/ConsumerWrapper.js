@@ -1,7 +1,13 @@
 const { KafkaConfig } = require("../config");
 
 class ConsumerWrapper {
-  static initialize = async ({ name, groupId, topics, fromBeginning }) => {
+  static initialize = async ({
+    name,
+    groupId,
+    topics,
+    fromBeginning,
+    customFunction,
+  }) => {
     const kafka = KafkaConfig.initialize();
 
     const consumer = kafka.consumer({ groupId });
@@ -14,6 +20,10 @@ class ConsumerWrapper {
 
     await consumer.run({
       eachMessage: async ({ topic, partition, message }) => {
+        if (typeof customFunction === "function") {
+          customFunction({ topic, partition, message });
+          return;
+        }
         console.log({
           Consumer: name,
           topic,
